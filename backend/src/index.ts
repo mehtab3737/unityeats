@@ -9,9 +9,16 @@ import cartRoutes from "./routes/carts";
 import orderRoutes from "./routes/orders";
 import { setSocketIO } from "./lib/socket-registry";
 
-const ALLOWED_ORIGINS = new Set(["http://localhost:3000", "http://127.0.0.1:3000"]);
+const ALLOWED_ORIGINS = new Set(
+  [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    process.env.FRONTEND_ORIGIN,
+    process.env.FRONTEND_URL,
+  ].filter((v): v is string => typeof v === "string" && v.length > 0),
+);
 
-const PORT = 4000;
+const PORT = Number(process.env.PORT) || 4000;
 
 const app = express();
 app.disable("etag");
