@@ -25,8 +25,8 @@ RUN npm ci --ignore-scripts
 
 COPY --from=builder /app/backend/dist ./backend/dist
 COPY --from=builder /app/backend/prisma ./backend/prisma
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
+
+RUN npm run prisma:generate -w backend
 
 EXPOSE 4000
 WORKDIR /app/backend
